@@ -13,9 +13,8 @@
 import { Todo, Meta } from 'components/models';
 import ExampleComponent from 'components/ExampleComponent.vue';
 import { ref } from 'vue';
-import {SayHello} from 'fooshared/user';
-
-const hello = SayHello.HELLO_TWICE;
+import { user } from 'fooshared';
+const hello = user.SayHello.HELLO_TWICE;
 console.log(hello);
 
 const todos = ref<Todo[]>([

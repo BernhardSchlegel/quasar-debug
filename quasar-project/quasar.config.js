@@ -76,15 +76,11 @@ module.exports = configure(function (/* ctx */) {
       // polyfillModulePreload: true,
       // distDir
 
+      extendViteConf (viteConf) {
+        viteConf.build.commonjsOptions = viteConf.build.commonjsOptions || {};
+        viteConf.build.commonjsOptions.include = viteConf.build.commonjsOptions.include || [];
 
-
-      extendViteConf (viteConf, { isServer, isClient }) {
-        viteConf.optimizeDeps.include = ["fooshared"];
-        viteConf.build = {
-          commonjsOptions: {
-            include: [/fooshared/, /node_modules/],
-          },
-        }
+        viteConf.build.commonjsOptions.include.push(/fooshared/)
       },
       // viteVuePluginOptions: {},
 
