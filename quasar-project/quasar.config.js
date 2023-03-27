@@ -12,7 +12,7 @@
 const { configure } = require('quasar/wrappers');
 
 
-module.exports = configure(function (/* ctx */) {
+module.exports = configure(function (ctx) {
   return {
     eslint: {
       // fix: true,
@@ -77,10 +77,24 @@ module.exports = configure(function (/* ctx */) {
       // distDir
 
       extendViteConf (viteConf) {
-        viteConf.build.commonjsOptions = viteConf.build.commonjsOptions || {};
-        viteConf.build.commonjsOptions.include = viteConf.build.commonjsOptions.include || [];
+        if (ctx.dev) {
+          viteConf.resolve = viteConf.resolve || {};
+          viteConf.resolve.alias = viteConf.resolve.alias || {};
+          viteConf.resolve.alias.fooshared = '../fooshared/src';
 
-        viteConf.build.commonjsOptions.include.push(/fooshared/)
+          viteConf.optimizeDeps = viteConf.optimizeDeps || {};
+          viteConf.optimizeDeps.include = viteConf.optimizeDeps.include || [];
+          viteConf.optimizeDeps.include.push('fooshared');
+        }
+
+        if (ctx.prod) {
+          viteConf.build.commonjsOptions = viteConf.build.commonjsOptions || {};
+          viteConf.build.commonjsOptions.include = viteConf.build.commonjsOptions.include || [];
+          viteConf.build.commonjsOptions.include.push(
+            /fooshared/,
+            /node_modules/
+          );
+        }
       },
       // viteVuePluginOptions: {},
 
