@@ -1,0 +1,13 @@
+{
+  "name": "monorepo",
+  "private": true,
+  "scripts": {
+    "lib:build": "yarn workspace fooshared build",
+    "app:dev": "yarn workspace quasar-project dev",
+    "app:build": "yarn workspace quasar-project build"
+  },
+  "workspaces": [
+    "fooshared",
+    "quasar-project"
+  ]
+}
